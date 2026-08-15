@@ -1,0 +1,55 @@
+# Core Framework
+fastapi==0.111.0
+uvicorn==0.29.0
+python-dotenv==1.0.1
+python-multipart==0.0.9
+email-validator>=2.1.1
+
+# MongoDB
+pymongo==4.7.1
+motor==3.4.0
+
+# PII Detection
+# NOTE: Using >= instead of == here on purpose. These pull in spacy's
+# Cython-based dependencies (blis/thinc), which don't always have
+# prebuilt wheels for the newest Python versions. Pinning exact old
+# versions forces pip to compile from source and fails without a C
+# compiler. >= lets pip pick whatever version has a prebuilt wheel
+# for the Python version actually installed.
+presidio-analyzer>=2.2.354
+presidio-anonymizer>=2.2.354
+spacy>=3.7.4
+
+# Toxicity Scoring
+detoxify==0.5.2
+
+# Machine Learning
+# NOTE: >= instead of == for the same reason as spacy above — these
+# pinned versions predate Python 3.13 wheel support and fail trying
+# to compile from source.
+scikit-learn>=1.4.2
+numpy>=1.26.4
+pandas>=2.2.2
+
+# Explainability
+lime==0.2.0.1
+
+# LLM APIs
+# NOTE: no dedicated "groq" package — Groq, Cerebras, NVIDIA NIM, and
+# Mistral are all OpenAI-compatible, so the `openai` SDK (pointed at
+# each provider's base_url) handles all four. See
+# llm/openai_compatible_client.py.
+google-generativeai==0.7.0
+openai==1.30.0
+
+# PDF Report Generation
+reportlab==4.2.0
+
+# HTTP Requests
+httpx==0.27.0
+requests==2.32.2
+
+# Security
+passlib==1.7.4
+python-jose==3.3.0
+bcrypt==4.1.3

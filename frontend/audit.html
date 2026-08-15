@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Audit Logs | AI Guardrail</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/audit.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-top">
+
+            <button id="toggleSidebar"
+                    class="icon-btn">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div class="logo">
+
+                <div class="logo-icon">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+                <span class="logo-text">
+
+                    AI Guardrail
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <button class="new-chat-btn tooltip"
+                data-tooltip="New Chat"
+                onclick="window.location='index.html'">
+
+            <i class="fa-solid fa-plus"></i>
+
+            <span>New Chat</span>
+
+        </button>
+
+        <nav class="nav-links">
+
+            <a href="index.html"
+               class="tooltip"
+               data-tooltip="New Chat">
+
+                <i class="fa-solid fa-comments"></i>
+
+                <span>New Chat</span>
+
+            </a>
+
+            <a href="audit.html"
+               class="active tooltip"
+               data-tooltip="Audit Logs">
+
+                <i class="fa-solid fa-file-shield"></i>
+
+                <span>Audit Logs</span>
+
+            </a>
+
+            <a href="#"
+               class="tooltip"
+               data-tooltip="Search Chats">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>Search Chats</span>
+
+            </a>
+
+        </nav>
+
+        <div class="recent-container">
+
+            <div class="recent-title">
+
+                Recent Chats
+
+            </div>
+
+            <div id="recentChats"
+                 class="recent-chats">
+
+            </div>
+
+        </div>
+
+        <div class="profile-area"
+             id="profileArea"
+             style="cursor:pointer;">
+
+            <div class="profile-circle">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div class="profile-details">
+
+                <span class="username" id="auditUsername">
+
+                    Log In
+
+                </span>
+
+                <small id="auditUserSub">
+
+                    Guest User
+
+                </small>
+
+            </div>
+
+            <button id="auditLogoutBtn"
+                    class="icon-btn"
+                    style="display:none;"
+                    title="Log out">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main audit-main">
+
+        <div class="audit-container">
+
+            <!-- Header -->
+
+            <div class="audit-header">
+
+                <h1>
+
+                    Audit Logs
+
+                </h1>
+
+                <p>
+
+                    Monitor every request processed by the AI Guardrail in real time.
+
+                </p>
+
+            </div>
+
+            <!-- ================= SUMMARY CARDS ================= -->
+
+            <div class="audit-cards">
+
+                <div class="audit-card">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-database"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Total Requests</h3>
+
+                        <span id="totalRequests">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="audit-card safe">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Safe Requests</h3>
+
+                        <span id="safeRequests">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="audit-card blocked">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-ban"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Blocked Requests</h3>
+
+                        <span id="blockedRequests">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="audit-card protected">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-shield"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Modified Responses</h3>
+
+                        <span id="modifiedResponses">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= SEARCH ================= -->
+
+            <div class="audit-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input type="text"
+                       id="searchLogs"
+                       placeholder="Search by Chat ID, Chat Name or AI Model...">
+
+            </div>
+
+            <!-- ================= TABLE ================= -->
+
+            <div class="audit-table-container">
+
+                <table class="audit-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Chat ID</th>
+
+                            <th>Chat Name</th>
+
+                            <th>AI Model</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="auditTableBody">
+
+                        <!-- audit.js will insert rows here -->
+
+                    </tbody>
+
+                </table>
+
+                <!-- Empty State -->
+
+                <div id="emptyAudit"
+                     class="empty-audit">
+
+                    <i class="fa-solid fa-file-shield"></i>
+
+                    <h3>
+
+                        No Audit Logs Yet
+
+                    </h3>
+
+                    <p>
+
+                        Chats will automatically appear here as users create conversations.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="js/audit.js"></script>
+
+</body>
+
+</html>

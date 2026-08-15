@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Guardrail</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="app">
+
+       <!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+
+        <button id="toggleSidebar" class="icon-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <span class="logo-text">
+                AI Guardrail
+            </span>
+
+        </div>
+
+    </div>
+
+    <button class="new-chat-btn tooltip" data-tooltip="New Chat">
+
+        <i class="fa-solid fa-plus"></i>
+
+        <span>New Chat</span>
+
+    </button>
+
+    <nav class="nav-links">
+
+        <a href="#" class="active tooltip" data-tooltip="New Chat">
+
+            <i class="fa-solid fa-comments"></i>
+
+            <span>New Chat</span>
+
+        </a>
+
+        <a href="audit.html" class="tooltip" id="auditBtn" data-tooltip="Audit Logs">
+
+            <i class="fa-solid fa-file-shield"></i>
+
+            <span>Audit Logs</span>
+
+        </a>
+
+        <a href="#" class="tooltip" id="searchBtn" data-tooltip="Search Chats">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <span>Search Chats</span>
+
+        </a>
+
+    </nav>
+
+    <div class="recent-container">
+
+        <div class="recent-title">
+
+            Recent Chats
+
+        </div>
+
+        <div id="recentChats" class="recent-chats">
+
+            <!-- Chats will be added here dynamically -->
+
+        </div>
+
+    </div>
+
+    <div class="profile-area" id="profileBtn">
+
+        <div class="profile-circle">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+        <div class="profile-details">
+
+            <span class="username">
+
+                Log In
+
+            </span>
+
+            <small>
+
+                Guest User
+
+            </small>
+
+        </div>
+
+    </div>
+
+</aside>
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="main">
+
+            <div class="top-right">
+
+                <button id="signInButton">
+
+                    Sign In
+
+                </button>
+
+            </div>
+
+            <!-- ================= EMPTY STATE ================= -->
+
+            <section class="welcome-screen" id="welcomeScreen">
+
+                <div class="shield">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+                <h1 id="welcomeHeading">
+
+                    Welcome to AI Guardrail
+
+                </h1>
+
+                <p id="welcomeText">
+
+                    Your prompts are automatically protected against prompt injection,
+                    sensitive information leakage, and unsafe AI responses.
+
+                </p>
+
+            </section>
+
+            <!-- ================= CHAT ================= -->
+
+            <section class="chat-container" id="chatContainer">
+
+                <!-- Messages will be created dynamically -->
+
+            </section>
+
+            <!-- ================= INPUT ================= -->
+
+            <div class="chat-input-area">
+
+                <div class="chips">
+
+                    <button>
+
+                        Summarize Text
+
+                    </button>
+
+                    <button>
+
+                        Explain Code
+
+                    </button>
+
+                </div>
+
+                <div class="input-box">
+
+                    <textarea
+                        id="promptInput"
+                        placeholder="Ask anything securely..."
+                        rows="1"></textarea>
+
+                    <div class="input-bottom">
+
+                        <div class="left-buttons">
+
+                            <!--<button>
+
+                                <i class="fa-solid fa-paperclip"></i>
+
+                            </button>-->
+
+                        </div>
+
+                        <button
+                            id="sendBtn"
+                            class="send-button">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="security-footer">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Protected by AI Guardrail
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- ================= SEARCH MODAL ================= -->
+
+    <div class="modal-overlay" id="searchOverlay">
+
+        <div class="modal search-modal">
+
+            <div class="modal-header">
+
+                <h2>
+
+                    Search Chats
+
+                </h2>
+
+                <button class="closeModal">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search conversations...">
+
+            <div class="search-results" id="searchResults">
+
+                No chats found.
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= ACCOUNT MODAL ================= -->
+
+    <div class="modal-overlay" id="accountOverlay">
+
+    <div class="modal settings-window">
+
+        <div class="modal-header">
+
+            <h2>Account</h2>
+
+            <button class="closeModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="settings-layout">
+
+            <div class="settings-sidebar">
+
+                <button class="settings-tab active"
+                    data-account="information">
+
+                    Personal Information
+
+                </button>
+
+                <button class="settings-tab"
+                    data-account="password">
+
+                    Change Password
+
+                </button>
+
+                <button class="settings-tab"
+                    data-account="switch">
+
+                    Switch Account
+
+                </button>
+
+                <button class="settings-tab"
+                    data-account="signout">
+
+                    Sign Out
+
+                </button>
+
+            </div>
+
+            <div
+                class="settings-content"
+                id="accountContent">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SIGN OUT CONFIRMATION -->
+
+<div class="modal-overlay" id="logoutOverlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>Sign Out</h2>
+
+            <button class="closeModal" id="logoutClose">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div style="padding:20px 0 10px; text-align:center;">
+
+            <i class="fa-solid fa-right-from-bracket"
+                style="font-size:42px; color:#bb3af2; margin-bottom:18px;"></i>
+
+            <p style="color:#CBD5E1; font-size:16px; line-height:1.7;">
+
+                Are you sure you want to sign out?
+
+            </p>
+
+        </div>
+
+        <div style="display:flex; justify-content:center; margin-top:24px;">
+
+            <button
+                class="login-btn"
+                id="logoutConfirm">
+
+                Sign Out
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- ================= SETTINGS MODAL ================= -->
+
+    <div class="modal-overlay" id="settingsOverlay">
+
+        <div class="modal settings-window">
+
+            <div class="modal-header">
+
+                <h2>Settings</h2>
+
+                <button class="closeModal">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+            <div class="settings-layout">
+
+                <div class="settings-sidebar">
+
+                    <div class="settings-heading">
+
+                        General
+
+                    </div>
+
+                    <button
+                        class="settings-tab active"
+                        data-setting="model">
+
+                        AI Model
+
+                    </button>
+
+                    <button
+                        class="settings-tab"
+                        data-setting="version">
+
+                        Guardrail Version
+
+                    </button>
+
+                    <button
+                        class="settings-tab"
+                        data-setting="history">
+
+                        Clear Chat History
+
+                    </button>
+
+                    <div class="settings-heading">
+
+                        Security
+
+                    </div>
+
+                    <button
+                        class="settings-tab"
+                        data-setting="highlight">
+
+                        Highlight Suspicious Content
+
+                    </button>
+
+                    <div class="settings-heading">
+
+                        Personalization
+
+                    </div>
+
+                    <button
+                        class="settings-tab"
+                        data-setting="theme">
+
+                        Theme
+
+                    </button>
+
+                    <button
+                        class="settings-tab"
+                        data-setting="accent">
+
+                        Accent Colour
+
+                    </button>
+
+                </div>
+
+                <div
+                    class="settings-content"
+                    id="settingsContent">
+
+                    <!-- This section is ready for implementation. -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= LOGIN MODAL ================= -->
+
+    <div class="modal-overlay" id="loginOverlay">
+
+        <div class="modal login-modal">
+
+            <div class="modal-header">
+
+                <h2>
+
+                    Sign In
+
+                </h2>
+
+                <button class="closeModal">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+            <form id="loginForm">
+
+                <input
+                    type="email"
+                    placeholder="Email Address"
+                    required>
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    required>
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    Sign In
+
+                </button>
+
+                <p class="signup-text">
+
+                    Don't have an account?
+
+                    <a href="#" id="openSignup">
+
+                        Sign Up
+
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SIGN UP MODAL ================= -->
+
+    <div class="modal-overlay" id="signupOverlay">
+
+        <div class="modal signup-modal">
+
+            <div class="modal-header">
+
+                <h2>
+
+                    Create Account
+
+                </h2>
+
+                <button class="closeModal">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+            <form id="signupForm">
+
+                <input
+                    type="text"
+                    placeholder="Full Name"
+                    required>
+
+                <input
+                    type="email"
+                    placeholder="Email Address"
+                    required>
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    required>
+
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    required>
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    Create Account
+
+                </button>
+
+                <p class="signup-text">
+
+                    Already have an account?
+
+                    <a href="#" id="backToLogin">
+
+                        Sign In
+
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ================= PROFILE DROPDOWN ================= -->
+
+    <div class="profile-dropdown" id="profileDropdown">
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+                <h4 id="profileName">Guest User</h4>
+                <small id="profileEmail">Not Signed In</small>
+            </div>
+
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <button class="dropdown-item" id="accountBtn">
+            <i class="fa-solid fa-user"></i>
+            Account
+        </button>
+
+        <button class="dropdown-item" id="settingsBtn">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </button>
+
+        <button
+            class="dropdown-item logout"
+            id="logoutButton">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Log Out
+
+        </button>
+
+    </div>
+
+    <!-- ================= TOAST ================= -->
+
+    <div id="toastContainer"></div>
+
+    <!-- ================= MESSAGE TEMPLATE ================= -->
+
+    <template id="messageTemplate">
+
+        <div class="message">
+
+            <div class="message-avatar">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div class="message-content">
+
+                <div class="message-text">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <!-- ================= LOADING TEMPLATE ================= -->
+
+    <template id="loadingTemplate">
+
+        <div class="message ai-message">
+
+            <div class="message-avatar">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+            <div class="message-content">
+
+                <div class="typing">
+
+                    <span></span>
+
+                    <span></span>
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <!-- ================= OVERLAY ================= -->
+
+    <div
+        id="overlay"
+        class="overlay">
+
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
+
