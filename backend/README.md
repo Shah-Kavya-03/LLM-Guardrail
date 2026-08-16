@@ -43,9 +43,9 @@
 - [ ] Step 5: Five-tier threat classification + LIME
 - [ ] Step 6: `GET /logs`, `GET /dashboard-stats`
 - [ ] Step 7: Auth endpoints
-- [ ] Step 8: Conversation history endpoints
-- [ ] Step 9: Admin endpoints
-- [ ] Step 10: Anomaly detection
+- [x] Step 8: Conversation history endpoints
+- [x] Step 9: Admin endpoints
+- [x] Step 10: Anomaly detection
 - [ ] Step 11: PDF reports
 - [ ] Step 12: Settings endpoints
 - [ ] Step 13: Final CORS + testing

@@ -55,3 +55,63 @@ def decode_access_token(token: str) -> dict | None:
         return jwt.decode(token, secret_key, algorithms=[algorithm])
     except JWTError:
         return None
+
+
+# ---- FastAPI dependency for protecting routes ----
+# Usage: add `user_id: str = Depends(get_current_user_id)` to any
+# route's parameters. FastAPI will run this first, return 401 if the
+# token is missing/invalid, and hand the route the caller's user_id
+# if it's valid.
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+_bearer_scheme = HTTPBearer(auto_error=False)
+
+
+async def get_current_user_id(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> str:
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing Authorization header. Expected: Bearer <token>",
+        )
+
+    payload = decode_access_token(credentials.credentials)
+    if payload is None or "sub" not in payload:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token.",
+        )
+
+    return payload["sub"]
+
+
+async def get_current_admin_user_id(
+    user_id: str = Depends(get_current_user_id),
+) -> str:
+    """
+    Same as get_current_user_id, but additionally requires the user's
+    `is_admin` flag to be true. Import lives inside the function to
+    avoid a circular import (database.connection doesn't need to be
+    imported at module load time for the rest of this file to work).
+    """
+    from bson import ObjectId
+    from database.connection import get_db
+
+    db = get_db()
+
+    try:
+        object_id = ObjectId(user_id)
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid user in token.")
+
+    user_doc = await db.users.find_one({"_id": object_id})
+    if user_doc is None:
+        raise HTTPException(status_code=401, detail="User not found.")
+
+    if not user_doc.get("is_admin", False):
+        raise HTTPException(status_code=403, detail="Admin access required.")
+
+    return user_id

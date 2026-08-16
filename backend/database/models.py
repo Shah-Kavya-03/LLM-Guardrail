@@ -71,7 +71,7 @@ def new_message(sender: str, text: str) -> dict:
     }
 
 
-def new_user(name: str, email: str, password_hashed: str) -> dict:
+def new_user(name: str, email: str, password_hashed: str, is_admin: bool = False) -> dict:
     """Shape of a document in the `users` collection."""
     return {
         "name": name,
@@ -79,6 +79,7 @@ def new_user(name: str, email: str, password_hashed: str) -> dict:
         "password_hashed": password_hashed,
         "created_at": now_utc(),
         "is_flagged": False,
+        "is_admin": is_admin,
     }
 
 
