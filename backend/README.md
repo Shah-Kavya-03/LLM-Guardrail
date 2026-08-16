@@ -46,6 +46,6 @@
 - [x] Step 8: Conversation history endpoints
 - [x] Step 9: Admin endpoints
 - [x] Step 10: Anomaly detection
-- [ ] Step 11: PDF reports
+- [x] Step 11: PDF reports
 - [ ] Step 12: Settings endpoints
 - [ ] Step 13: Final CORS + testing

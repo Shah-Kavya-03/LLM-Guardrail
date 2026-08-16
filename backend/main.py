@@ -16,7 +16,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database.connection import connect_to_mongo, close_mongo_connection
-from routers import health, chat, logs, auth, conversations, admin, anomalies
+from routers import health, chat, logs, auth, conversations, admin, anomalies, reports
 
 load_dotenv()
 
@@ -58,6 +58,7 @@ app.include_router(auth.router)
 app.include_router(conversations.router)
 app.include_router(admin.router)
 app.include_router(anomalies.router)
+app.include_router(reports.router)
 
 
 @app.get("/")
