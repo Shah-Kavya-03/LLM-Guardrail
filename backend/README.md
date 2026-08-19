@@ -38,11 +38,11 @@
 
 ## Build progress
 - [x] Step 1-2: FastAPI + MongoDB connection, `.env` config
-- [ ] Step 3: `POST /chat` — Presidio → toxicity → LLM pipeline
-- [ ] Step 4: API rotation (Gemini → Groq → Cerebras → NVIDIA → Mistral)
-- [ ] Step 5: Five-tier threat classification + LIME
-- [ ] Step 6: `GET /logs`, `GET /dashboard-stats`
-- [ ] Step 7: Auth endpoints
+- [x] Step 3: `POST /chat` — Presidio → toxicity → LLM pipeline
+- [x] Step 4: API rotation (Gemini → Groq → Cerebras → NVIDIA → Mistral)
+- [x] Step 5: Five-tier threat classification + LIME
+- [x] Step 6: `GET /logs`, `GET /dashboard-stats`
+- [x] Step 7: Auth endpoints
 - [x] Step 8: Conversation history endpoints
 - [x] Step 9: Admin endpoints
 - [x] Step 10: Anomaly detection
