@@ -74,63 +74,438 @@ a{
 
 }
 
-.sidebar{
+/* ==========================================
+   SIDEBAR
+========================================== */
 
-    width:280px;
+.sidebar {
+    width: 280px;
+    height: 100vh;
 
-    background:rgba(17,24,39,.96);
+    background: rgba(17, 24, 39, .96);
+    backdrop-filter: blur(22px);
 
-    backdrop-filter:blur(22px);
+    border-right: 1px solid var(--border);
 
-    border-right:1px solid var(--border);
+    display: flex;
+    flex-direction: column;
 
-    display:flex;
+    overflow: visible;
 
-    flex-direction:column;
-
-    transition:.35s;
-
-    
-
-
+    transition: width .3s ease;
 }
 
-.sidebar.collapsed .sidebar-top{
+/* ==========================================
+   SIDEBAR TOP
+========================================== */
 
-    justify-content:center;
+.sidebar-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 
+    padding: 22px;
+
+    flex-shrink: 0;
 }
 
-.sidebar.collapsed .logo-text{
 
-    opacity:0;
+/* ==========================================
+   TOGGLE BUTTON
+========================================== */
 
-    width:0;
+#toggleSidebar {
+    width: 42px;
+    height: 42px;
 
-    overflow:hidden;
+    min-width: 42px;
 
-    white-space:nowrap;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 12px;
 
+    background: rgba(255, 255, 255, .06);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.sidebar.collapsed{
+#toggleSidebar:hover {
+    background: rgba(58, 230, 242, .12);
 
-    width:82px;
+    border-color: rgba(58, 230, 242, .35);
 
+    box-shadow: 0 0 14px rgba(58, 230, 242, .12);
+
+    transform: scale(1.04);
 }
 
-.sidebar-top{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    padding:22px;
-
+#toggleSidebar:active {
+    transform: scale(.94);
 }
 
+
+/* ==========================================
+   COLLAPSED SIDEBAR
+========================================== */
+
+.sidebar.collapsed {
+    width: 82px;
+}
+
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-width: 0;
+
+    transition: opacity .2s ease;
+}
+
+
+/* Hide ENTIRE logo when collapsed */
+
+.sidebar.collapsed .logo {
+    display: none;
+}
+
+
+/* ==========================================
+   COLLAPSED TOP
+========================================== */
+
+.sidebar.collapsed .sidebar-top {
+    justify-content: center;
+
+    padding: 20px 0;
+}
+
+
+/* ==========================================
+   NEW CHAT BUTTON
+========================================== */
+
+.new-chat-btn {
+    margin: 0 18px 15px;
+
+    height: 44px;
+
+    border: none;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #3ae6f2,
+        #A855F7
+    );
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.new-chat-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 18px rgba(58, 230, 242, .18);
+}
+
+
+/* Collapsed New Chat */
+
+.sidebar.collapsed .new-chat-btn {
+    width: 44px;
+
+    margin: 0 auto 15px;
+
+    padding: 0;
+
+    border-radius: 12px;
+}
+
+
+/* Hide text */
+
+.sidebar.collapsed .new-chat-btn span {
+    display: none;
+}
+
+
+/* ==========================================
+   NAV LINKS
+========================================== */
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 0 18px;
+}
+
+.nav-links a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-height: 44px;
+
+    padding: 0 14px;
+
+    border-radius: 12px;
+
+    color: #aaaabd;
+
+    text-decoration: none;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, .06);
+
+    color: white;
+}
+
+
+/* ==========================================
+   COLLAPSED NAV
+========================================== */
+
+.sidebar.collapsed .nav-links {
+    padding: 0 19px;
+}
+
+.sidebar.collapsed .nav-links a {
+    width: 44px;
+
+    padding: 0;
+
+    justify-content: center;
+}
+
+
+/* Hide text */
+
+.sidebar.collapsed .nav-links a span {
+    display: none;
+}
+
+
+/* ==========================================
+   TOOLTIP
+========================================== */
+
+.tooltip {
+    position: relative;
+}
+
+
+/* Tooltip box */
+
+.sidebar.collapsed .tooltip::after {
+    content: attr(data-tooltip);
+
+    position: absolute;
+
+    left: calc(100% + 12px);
+    top: 50%;
+
+    transform: translateY(-50%) translateX(-5px);
+
+    background: #202033;
+    color: white;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .3);
+
+    z-index: 99999;
+
+    transition:
+        opacity .18s ease,
+        transform .18s ease;
+}
+
+
+/* Tooltip arrow */
+
+.sidebar.collapsed .tooltip::before {
+    content: "";
+
+    position: absolute;
+
+    left: calc(100% + 3px);
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border-width: 5px;
+    border-style: solid;
+
+    border-color: transparent #202033 transparent transparent;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    z-index: 99999;
+
+    transition: opacity .18s ease;
+}
+
+
+/* Show tooltip */
+
+.sidebar.collapsed .tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(-50%) translateX(0);
+}
+
+.sidebar.collapsed .tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ==========================================
+   RECENT CHATS
+========================================== */
+.recent-container {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar.collapsed .recent-container {
+    display: none;
+}
+
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+.profile-area {
+    margin-top: auto;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    padding: 18px 22px;
+
+    cursor: pointer;
+
+    transition: background .2s ease;
+}
+
+.profile-area:hover {
+    background: rgba(255, 255, 255, .04);
+}
+
+
+.profile-circle {
+    width: 40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, .08);
+
+    color: white;
+}
+
+
+/* Profile text */
+
+.profile-details {
+    margin-left: 12px;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: opacity .2s ease;
+}
+
+
+/* Collapsed profile */
+
+.sidebar.collapsed .profile-area {
+    justify-content: center;
+
+    padding: 18px 0;
+}
+
+.sidebar.collapsed .profile-details {
+    display: none;
+}
 /* ==========================================
    RECENT CHAT ITEM
 ========================================== */
@@ -1065,78 +1440,95 @@ a{
    INPUT FOOTER
 ========================================== */
 
-.input-bottom{
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
 
-    display:flex;
+    background: #18182A;
+    border: 1px solid #2d2d45;
+    border-radius: 18px;
 
-    justify-content:space-between;
+    padding: 16px 70px 16px 18px;
 
-    align-items:center;
-
-    margin-top:16px;
-
+    min-height: 60px;
 }
 
-.left-buttons{
+/* Textarea */
 
-    display:flex;
+#promptInput {
+    width: 100%;
 
-    gap:10px;
+    border: none;
+    outline: none;
+    resize: none;
 
+    background: transparent;
+    color: white;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    line-height: 22px;
+
+    max-height: 150px;
 }
 
-.left-buttons button{
-
-    width:42px;
-
-    height:42px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#23233A;
-
-    color:white;
-
-    cursor:pointer;
-
-    transition:.25s;
-
+#promptInput::placeholder {
+    color: #77778f;
 }
 
-.left-buttons button:hover{
 
-    background:#29a2e2;
+/* Send Button */
 
+.send-button {
+    position: absolute;
+
+    right: 12px;
+    bottom: 10px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #3ae6f2,
+        #A855F7
+    );
+
+    transition: .3s;
 }
 
-.send-button{
-
-    width:52px;
-
-    height:52px;
-
-    border:none;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-size:18px;
-
-    background:linear-gradient(135deg,#3ae6f2,#A855F7);
-
-    transition:.3s;
-
+.send-button:hover {
+    transform: scale(1.08);
 }
 
-.send-button:hover{
 
-    transform:scale(1.08);
+/* Security Footer */
 
+.security-footer {
+    margin-top: 10px;
+
+    text-align: center;
+
+    font-size: 12px;
+    color: #77778f;
+}
+
+.security-footer i {
+    margin-right: 5px;
 }
 
 /* ==========================================
