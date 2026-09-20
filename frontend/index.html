@@ -40,7 +40,7 @@
                 <i class="fa-solid fa-shield-halved"></i>
             </div>
 
-            <span class="logo-text">
+            <span class="logo-text" style="user-select:none; " draggable="false">
                 AI Guardrail
             </span>
 
@@ -55,7 +55,7 @@
 
         <i class="fa-solid fa-plus"></i>
 
-        <span>New Chat</span>
+        <span style="user-select:none;" draggable="false">New Chat</span>
 
     </button>
 
@@ -71,7 +71,7 @@
 
             <i class="fa-solid fa-file-shield"></i>
 
-            <span>Audit Logs</span>
+            <span style="user-select:none;" draggable="false">Audit Logs</span>
 
         </a>
 
@@ -83,7 +83,7 @@
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-            <span>Search Chats</span>
+            <span style="user-select:none;" draggable="false">Search Chats</span>
 
         </a>
 
@@ -94,13 +94,13 @@
 
     <div class="recent-container">
 
-        <div class="recent-title">
+        <div class="recent-title" style="user-select:none;" draggable="false">
 
             Recent Chats
 
         </div>
 
-        <div id="recentChats" class="recent-chats">
+        <div id="recentChats" class="recent-chats" style="user-select:none;" draggable="false">
 
             <!-- Chats will be added here dynamically -->
 
@@ -121,11 +121,11 @@
 
         <div class="profile-details">
 
-            <span class="username">
+            <span class="username" style="user-select:none;" draggable="false">
                 Log In
             </span>
 
-            <small>
+            <small style="user-select:none;" draggable="false">
                 Guest User
             </small>
 
@@ -141,7 +141,7 @@
 
             <div class="top-right">
 
-                <button id="signInButton">
+                <button id="signInButton" style="user-select:none;" draggable="false">
 
                     Sign In
 
@@ -159,13 +159,13 @@
 
                 </div>
 
-                <h1 id="welcomeHeading">
+                <h1 id="welcomeHeading" style="user-select:none;" draggable="false">
 
                     Welcome to AI Guardrail
 
                 </h1>
 
-                <p id="welcomeText">
+                <p id="welcomeText" style="user-select:none;" draggable="false">
 
                     Your prompts are automatically protected against prompt injection,
                     sensitive information leakage, and unsafe AI responses.
@@ -184,14 +184,14 @@
 
             <!-- ================= INPUT ================= -->
 
-            <div class="chat-input-area">
+            <div class="chat-input-area" >
 
                 <div class="input-box">
 
                     <textarea
                         id="promptInput"
                         placeholder="Ask anything securely..."
-                        rows="1"></textarea>
+                        rows="1" style="user-select: none;"></textarea>
 
                     <button
                         id="sendBtn"
@@ -203,9 +203,9 @@
 
                 </div>
 
-                <div class="security-footer">
+                <div class="security-footer" style="user-select: none;">
 
-                    <i class="fa-solid fa-lock"></i>
+                    <i class="fa-solid fa-lock" ></i>
 
                     Protected by AI Guardrail
 
@@ -225,7 +225,7 @@
 
             <div class="modal-header">
 
-                <h2>
+                <h2 style="user-select:none;" draggable="false">
 
                     Search Chats
 
@@ -242,9 +242,9 @@
             <input
                 type="text"
                 id="searchInput"
-                placeholder="Search conversations...">
+                placeholder="Search conversations..." >
 
-            <div class="search-results" id="searchResults">
+            <div class="search-results" id="searchResults" style="user-select:none;" draggable="false">
 
                 No chats found.
 
@@ -262,7 +262,7 @@
 
         <div class="modal-header">
 
-            <h2>Account</h2>
+            <h2 style="user-select:none;" draggable="false">Account</h2>
 
             <button class="closeModal">
 
@@ -277,28 +277,28 @@
             <div class="settings-sidebar">
 
                 <button class="settings-tab active"
-                    data-account="information">
+                    data-account="information" style="user-select:none;" draggable="false">
 
                     Personal Information
 
                 </button>
 
                 <button class="settings-tab"
-                    data-account="password">
+                    data-account="password" style="user-select:none;" draggable="false">
 
                     Change Password
 
                 </button>
 
                 <button class="settings-tab"
-                    data-account="switch">
+                    data-account="switch" style="user-select:none;" draggable="false">
 
                     Switch Account
 
                 </button>
 
                 <button class="settings-tab"
-                    data-account="signout">
+                    data-account="signout" style="user-select:none;" draggable="false">
 
                     Sign Out
 
@@ -324,7 +324,7 @@
 
     <div class="modal">
 
-        <div class="modal-header">
+        <div class="modal-header" style="user-select:none;" draggable="false">
 
             <h2>Sign Out</h2>
 
@@ -341,7 +341,7 @@
             <i class="fa-solid fa-right-from-bracket"
                 style="font-size:42px; color:#bb3af2; margin-bottom:18px;"></i>
 
-            <p style="color:#CBD5E1; font-size:16px; line-height:1.7;">
+            <p style="color:#CBD5E1; font-size:16px; line-height:1.7; user-select:none;" draggable="false">
 
                 Are you sure you want to sign out?
 
@@ -353,7 +353,7 @@
 
             <button
                 class="login-btn"
-                id="logoutConfirm">
+                id="logoutConfirm" style="user-select:none;" draggable="false">
 
                 Sign Out
 
@@ -373,7 +373,7 @@
 
             <div class="modal-header">
 
-                <h2>Settings</h2>
+                <h2 style="user-select:none;" draggable="false">Settings</h2>
 
                 <button class="closeModal">
 
@@ -498,10 +498,22 @@
                     placeholder="Email Address"
                     required>
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    required>
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        aria-label="Show password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
 
                 <button
                     type="submit"
@@ -563,15 +575,39 @@
                     placeholder="Email Address"
                     required>
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    required>
+                <div class="password-wrapper">
 
-                <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    required>
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        aria-label="Show password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="signupConfirmPassword"
+                        placeholder="Confirm Password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        aria-label="Show password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
 
                 <button
                     type="submit"

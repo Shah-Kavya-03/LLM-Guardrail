@@ -92,7 +92,7 @@ a{
 
     overflow: visible;
 
-    transition: width .3s ease;
+    transition: width .4s cubic-bezier(.4, 0, .2, 1);
 }
 
 /* ==========================================
@@ -117,7 +117,6 @@ a{
 #toggleSidebar {
     width: 42px;
     height: 42px;
-
     min-width: 42px;
 
     border: 1px solid rgba(255, 255, 255, .08);
@@ -131,30 +130,30 @@ a{
     justify-content: center;
 
     cursor: pointer;
-
     font-size: 16px;
 
     transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease,
-        box-shadow .2s ease;
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 #toggleSidebar:hover {
-    background: rgba(58, 230, 242, .12);
+    background: #A855F7;
+    border-color: #A855F7;
+    box-shadow: none;
 
-    border-color: rgba(58, 230, 242, .35);
-
-    box-shadow: 0 0 14px rgba(58, 230, 242, .12);
-
-    transform: scale(1.04);
+    transform: rotate(90deg);
 }
 
 #toggleSidebar:active {
-    transform: scale(.94);
+    transform: rotate(90deg) scale(.92);
 }
 
+#toggleSidebar i {
+    transition: transform 0.3s ease;
+}
 
 /* ==========================================
    COLLAPSED SIDEBAR
@@ -1860,6 +1859,38 @@ a{
 
 }
 
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: none;
+    border: none;
+    padding: 5px;
+
+    color: #888;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #29a2e2;
+}
+
 /* ==========================================
    SEARCH
 ========================================== */
@@ -3076,6 +3107,244 @@ textarea:focus-visible{
 
     background:#343452;
 
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   SIDEBAR SMOOTH COLLAPSE / EXPAND
+   FINAL ALIGNMENT FIX
+========================================== */
+
+.sidebar {
+    transition: width .4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.sidebar.collapsed {
+    width: 82px;
+}
+
+
+/* ==========================================
+   TOGGLE + LOGO
+========================================== */
+
+.sidebar-top {
+    transition:
+        padding .35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.sidebar .logo {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+
+    transition:
+        opacity .2s ease,
+        transform .25s ease,
+        width .35s ease;
+}
+
+/* IMPORTANT:
+   Remove the logo from the flex spacing when collapsed */
+.sidebar.collapsed .logo {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
+    transform: translateX(-10px);
+    pointer-events: none;
+}
+
+.sidebar.collapsed .sidebar-top {
+    justify-content: center;
+    gap: 0;
+    padding: 20px 0;
+}
+
+
+/* Toggle stays perfectly centered */
+#toggleSidebar {
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   NEW CHAT BUTTON
+========================================== */
+
+.new-chat-btn {
+    transition:
+        width .35s cubic-bezier(.4, 0, .2, 1),
+        margin .35s cubic-bezier(.4, 0, .2, 1),
+        padding .35s ease,
+        border-radius .35s ease,
+        gap .25s ease,
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.new-chat-btn span {
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+        opacity .2s ease,
+        transform .25s ease,
+        width .25s ease;
+}
+
+.sidebar.collapsed .new-chat-btn {
+    width: 44px;
+    height: 44px;
+
+    margin: 0 auto 15px;
+    padding: 0;
+
+    gap: 0;
+}
+
+.sidebar.collapsed .new-chat-btn span {
+    display: inline;
+    opacity: 0;
+    transform: translateX(-8px);
+
+    width: 0;
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+.nav-links a {
+    transition:
+        width .35s cubic-bezier(.4, 0, .2, 1),
+        padding .35s cubic-bezier(.4, 0, .2, 1),
+        gap .25s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+.nav-links a span {
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+        opacity .2s ease,
+        transform .25s ease,
+        width .25s ease;
+}
+
+.sidebar.collapsed .nav-links a {
+    gap: 0;
+}
+
+.sidebar.collapsed .nav-links a span {
+    display: inline;
+
+    opacity: 0;
+    transform: translateX(-8px);
+
+    width: 0;
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   RECENT CHATS
+========================================== */
+
+.recent-container {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+
+    transition:
+        opacity .25s ease,
+        transform .3s ease,
+        visibility .3s ease;
+}
+
+.sidebar.collapsed .recent-container {
+    display: block;
+
+    opacity: 0;
+    transform: translateX(-12px);
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   RECENT TITLE
+========================================== */
+
+.recent-title {
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+        opacity .2s ease,
+        transform .25s ease;
+}
+
+.sidebar.collapsed .recent-title {
+    opacity: 0;
+    transform: translateX(-8px);
+}
+
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+.profile-area {
+    transition:
+        padding .35s cubic-bezier(.4, 0, .2, 1),
+        background .2s ease;
+}
+
+.profile-details {
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+        opacity .25s ease,
+        transform .3s ease,
+        width .25s ease;
+}
+
+.sidebar.collapsed .profile-area {
+    justify-content: center;
+    gap: 0;
+}
+
+.sidebar.collapsed .profile-details {
+    display: flex;
+
+    opacity: 0;
+    transform: translateX(-10px);
+
+    width: 0;
+    overflow: hidden;
+
+    margin-left: 0;
 }
 
 /* ==========================================
