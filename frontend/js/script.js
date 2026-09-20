@@ -796,21 +796,19 @@ function renderRecentChats() {
 
             <div class="chat-menu">
 
-                <button class="pin-chat">
-
-                    <i class="fa-solid fa-thumbtack"></i>
-
-                    ${chat.pinned ? "Unpin Chat" : "Pin Chat"}
-
+                <button class="rename-chat">
+                    <i class="fa-solid fa-pen"></i>
+                    Rename Chat
                 </button>
 
+                <button class="pin-chat">
+                    <i class="fa-solid fa-thumbtack"></i>
+                    ${chat.pinned ? "Unpin Chat" : "Pin Chat"}
+                </button>
 
                 <button class="delete-chat">
-
                     <i class="fa-solid fa-trash"></i>
-
                     Delete Chat
-
                 </button>
 
             </div>
@@ -852,6 +850,97 @@ function renderRecentChats() {
 
         };
 
+        // Rename chat
+        chatItem.querySelector(".rename-chat").onclick = (e) => {
+
+            e.stopPropagation();
+
+            const renameOverlay = document.getElementById("renameOverlay");
+            const renameInput = document.getElementById("renameInput");
+
+            renameInput.value = chat.title;
+
+            renameOverlay.classList.add("active");
+
+            setTimeout(() => {
+                renameInput.focus();
+                renameInput.select();
+            }, 100);
+
+            const saveRename = () => {
+
+                const newTitle = renameInput.value.trim();
+
+                if (!newTitle) {
+                    toast("Chat name cannot be empty", "error");
+                    renameInput.focus();
+                    return;
+                }
+
+                chat.title = newTitle;
+
+                saveData();
+                renderAuditLogs();
+                renderRecentChats();
+                renderSearch();
+
+                renameOverlay.classList.remove("active");
+
+                toast("Chat renamed", "success");
+
+                cleanupRename();
+
+            };
+
+            const cleanupRename = () => {
+
+                document.getElementById("renameSave")
+                    .removeEventListener("click", saveRename);
+
+                document.getElementById("renameCancel")
+                    .removeEventListener("click", cancelRename);
+
+            };
+
+            const cancelRename = () => {
+
+                renameOverlay.classList.remove("active");
+
+                cleanupRename();
+
+            };
+
+            document.getElementById("renameSave")
+                .addEventListener("click", saveRename);
+
+            document.getElementById("renameCancel")
+                .addEventListener("click", cancelRename);
+
+        };
+
+        const renameOverlay = document.getElementById("renameOverlay");
+        const renameInput = document.getElementById("renameInput");
+        const renameClose = document.getElementById("renameClose");
+
+        renameClose.addEventListener("click", () => {
+            renameOverlay.classList.remove("active");
+        });
+
+        renameOverlay.addEventListener("click", (e) => {
+
+            if (e.target === renameOverlay) {
+                renameOverlay.classList.remove("active");
+            }
+
+        });
+
+        renameInput.addEventListener("keydown", (e) => {
+
+            if (e.key === "Escape") {
+                renameOverlay.classList.remove("active");
+            }
+
+        });
 
         // Pin / Unpin chat
         chatItem.querySelector(".pin-chat").onclick = (e) => {

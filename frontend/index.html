@@ -64,7 +64,7 @@
 
     <nav class="nav-links">
 
-        <a href="audit.html"
+        <!-- <a href="audit.html"
            class="tooltip"
            id="auditBtn"
            data-tooltip="Audit Logs">
@@ -73,7 +73,7 @@
 
             <span style="user-select:none;" draggable="false">Audit Logs</span>
 
-        </a>
+        </a> -->
 
 
         <a href="#"
@@ -247,6 +247,61 @@
             <div class="search-results" id="searchResults" style="user-select:none;" draggable="false">
 
                 No chats found.
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= RENAME CHAT MODAL ================= -->
+
+    <div class="modal-overlay" id="renameOverlay">
+
+        <div class="modal rename-modal">
+
+            <div class="modal-header">
+
+                <h2>Rename Chat</h2>
+
+                <button class="closeModal" id="renameClose">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+            <div class="rename-content">
+
+                <label for="renameInput">
+                    Chat name
+                </label>
+
+                <input
+                    type="text"
+                    id="renameInput"
+                    placeholder="Enter a new chat name..."
+                    maxlength="100"
+                    autocomplete="off">
+
+                <div class="rename-actions">
+
+                    <button
+                        type="button"
+                        class="rename-cancel"
+                        id="renameCancel">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="button"
+                        class="rename-save"
+                        id="renameSave">
+                        Save Changes
+                    </button>
+
+                </div>
 
             </div>
 

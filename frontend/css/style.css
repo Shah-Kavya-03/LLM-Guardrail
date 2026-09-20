@@ -1215,7 +1215,7 @@ a{
 
     overflow-y:auto;
 
-    padding:40px 10% 170px;
+    padding:90px 10% 170px;
 
     scroll-behavior:smooth;
 
@@ -2478,34 +2478,14 @@ a{
     }
 
     .chat-input-area{
-
         width:94%;
-
     }
 
 }
 
 @media screen and (max-width:900px){
 
-    .sidebar{
-
-        position:fixed;
-
-        left:0;
-
-        top:0;
-
-        height:100vh;
-
-        z-index:1000;
-
-    }
-
-    .main{
-
-        margin-left:82px;
-
-    }
+    
 
     .profile-dropdown{
 
@@ -2525,6 +2505,10 @@ a{
 
         font-size:34px;
 
+    }
+
+    .chat-container{
+        padding-top:100px;
     }
 
 }
@@ -2550,14 +2534,20 @@ a{
     }
 
     .chat-input-area{
-
-        width:95%;
-
+    position:absolute;
+    left:50%;
+    bottom:22px;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:900px;
     }
 
     .modal{
 
-        width:94%;
+        width:min(430px, calc(100vw - 40px));
+
+        max-width:430px;
+
 
     }
 
@@ -2647,7 +2637,7 @@ a{
 
     }
 
-}
+} 
 
 /* ==========================================
    CHAT SPACING
@@ -3346,6 +3336,129 @@ textarea:focus-visible{
 
     margin-left: 0;
 }
+
+
+/* ==========================================
+   RENAME CHAT MODAL
+========================================== */
+
+.rename-modal {
+    width: 430px;
+}
+
+.rename-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rename-content label {
+    color: #c7c7d9;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#renameInput {
+    width: 100%;
+    padding: 15px 18px;
+
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.08);
+
+    background: #23233A;
+    color: white;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+#renameInput::placeholder {
+    color: #77778f;
+}
+
+#renameInput:focus {
+    border-color: #3ae6f2;
+    box-shadow: 0 0 0 3px rgba(139,92,246,.15);
+}
+
+.rename-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.rename-cancel,
+.rename-save {
+    padding: 12px 18px;
+
+    border-radius: 12px;
+    border: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.rename-cancel {
+    background: #23233A;
+    color: #c7c7d9;
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.rename-cancel:hover {
+    background: #2d2d45;
+    color: white;
+}
+
+.rename-save {
+    background: linear-gradient(
+        135deg,
+        #3ae6f2,
+        #A855F7
+    );
+
+    color: white;
+}
+
+.rename-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(139,92,246,.25);
+}
+
+.rename-save:active,
+.rename-cancel:active {
+    transform: scale(.97);
+}
+
+
+/* Prevent first chat message from entering the Sign In area 
+but not looking good so i commented it out for now. 
+
+.chat-container .message:first-child{
+    margin-top:100px;
+}
+
+.chat-container .message:first-child.user-message{
+    padding-right:140px;
+}
+
+*/
+
 
 /* ==========================================
    END OF STYLE.CSS
