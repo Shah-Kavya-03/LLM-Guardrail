@@ -148,6 +148,44 @@ closeButtons.forEach(btn=>{
 
 });
 
+/* ==========================================
+   SHOW / HIDE PASSWORD
+========================================== */
+
+const passwordToggles = document.querySelectorAll(".toggle-password");
+
+passwordToggles.forEach(toggle => {
+
+    toggle.addEventListener("click", () => {
+
+        const wrapper = toggle.closest(".password-wrapper");
+        const input = wrapper.querySelector("input");
+        const icon = toggle.querySelector("i");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+
+            toggle.setAttribute("aria-label", "Hide password");
+
+        } else {
+
+            input.type = "password";
+
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+
+            toggle.setAttribute("aria-label", "Show password");
+
+        }
+
+    });
+
+});
+
 window.addEventListener("click",(e)=>{
 
     if(e.target===loginOverlay){
@@ -349,7 +387,7 @@ function updateUserUI(){
 
         welcomeHeading.textContent=`Hey, ${currentUser.name} 👋`;
 
-        welcomeText.textContent="How can I help you securely today?";
+        welcomeText.textContent="How can I help you today?";
 
         signInButton.style.display="none";
 
